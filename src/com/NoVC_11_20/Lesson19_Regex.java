@@ -3,7 +3,7 @@ package com.NoVC_11_20;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Lesson19 {
+public class Lesson19_Regex {
 	
 	public static void main(String[] args) {
 		
