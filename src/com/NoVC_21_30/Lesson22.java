@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -14,11 +15,14 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class Lesson22 extends JFrame {
 	
@@ -32,7 +36,7 @@ public class Lesson22 extends JFrame {
 	JLabel perfomanceCountLabel,performNum;
 	JSlider slider;
 	
-	double number1,number2,number3;
+	double number1,number2,number3,total;
 	
 	public static void main(String[] args) {
 	
@@ -84,6 +88,7 @@ public class Lesson22 extends JFrame {
 		operationGroup.add(引く);
 		operationGroup.add(かける);
 		operationGroup.add(割);
+		足す.setSelected(true);
 		
 		perfomanceCountLabel = new JLabel("Perform how many times?");
 		performNum = new JLabel();
@@ -93,16 +98,79 @@ public class Lesson22 extends JFrame {
 		slider.setMajorTickSpacing(10);
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
-		
+		slider.setPaintLabels(true);
+		performNum.setText(String.valueOf(slider.getValue()));
 		//Event listener
+		slider.addChangeListener(new ChangeListener() {
+		    @Override
+		    public void stateChanged(ChangeEvent e) {
+		        performNum.setText(String.valueOf(slider.getValue()));
+		    }
+		});
+		
 		calculateBtn.addActionListener(new ActionListener() {
-			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				
+				if (e.getSource() == calculateBtn) {
+					try {
+						number1 = Double.parseDouble(textField1.getText());
+						number2 = Double.parseDouble(textField2.getText());
+					} 
+					catch (NumberFormatException e1) {
+						JOptionPane.showMessageDialog(Lesson22.this, "Enter the right info", "ERROR", JOptionPane.ERROR_MESSAGE);
+						System.exit(0);
+					}
+					if (足す.isSelected()) {
+						total = addNumbers(number1, number2, slider.getValue());
+					}
+					else if (引く.isSelected()) {
+						total = subtractNumbers(number1, number2, slider.getValue());
+					}
+					else if (かける.isSelected()) {
+						total = multiplyNumbers(number1, number2, slider.getValue());
+					}
+					else {
+						total = divideNumbers(number1, number2, slider.getValue());
+					}
+					
+					if (dollars.isSelected()) {
+						NumberFormat numFormat = NumberFormat.getCurrencyInstance();
+						JOptionPane.showMessageDialog(Lesson22.this, numFormat.format(total), "Solution", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else if (commas.isSelected()) {
+						NumberFormat numFormat = NumberFormat.getNumberInstance();
+						JOptionPane.showMessageDialog(Lesson22.this, numFormat.format(total), "Solution", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else {
+						JOptionPane.showMessageDialog(Lesson22.this, total, "Solution", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
 				
 			}
+			
+			
+
+			private double divideNumbers(double number1, double number2, int value) {
+				for (int i = 0; i < value; i++) {
+					number1 = number1 / number2;
+				}
+				return number1;
+			}
+
+			private double multiplyNumbers(double number1, double number2, int value) {
+				return number1 * (number2 * value);
+			}
+
+			private double subtractNumbers(double number1, double number2, int value) {
+				return number1 - number2 * value;
+			}
+
+			private double addNumbers(double number1, double number2, int value) {
+				return number1 + number2 * value;
+			}
 		});
+		
 		
 		//Add component
 		panel1.add(calculateBtn);
