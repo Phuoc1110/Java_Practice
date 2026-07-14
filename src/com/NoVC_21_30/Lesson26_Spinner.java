@@ -9,7 +9,7 @@ import java.awt.Dimension;
 import java.util.Date;
 import java.util.Calendar;
 
-public class Lesson26 extends JFrame {
+public class Lesson26_Spinner extends JFrame {
 	
 	JButton btn1;
 	JSpinner spinner1,spinner2, spinner3, spinner4;
@@ -18,11 +18,11 @@ public class Lesson26 extends JFrame {
 	
 	public static void main(String[] args) {
 		
-		Lesson26 lesson26 = new Lesson26();
+		Lesson26_Spinner lesson26 = new Lesson26_Spinner();
 		
 	}
 	
-	public Lesson26() {
+	public Lesson26_Spinner() {
 		
 		this.setTitle("Lesson 26");
 		this.setSize(400,400);
