@@ -2,6 +2,8 @@ package com.NoVC_21_30;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
 
@@ -85,8 +87,10 @@ public class Lesson28_Layouts extends JFrame{
 		theBox.add(button5);
 		*/
 		
+		
+		//GRID LAYOUT
 		JPanel thePanel = new JPanel();
-		thePanel.setLayout(new GridLayout(4,3,10,5));
+		thePanel.setLayout(new GridLayout(0, 3));
 		
 		button1 = new JButton("1");
 		button2 = new JButton("2");
